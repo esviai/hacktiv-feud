@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": ""
+    "test": "NODE_ENV=test mocha",
+    "start": "nodemon app.js"
   },
   "keywords": [
     "node.js",
