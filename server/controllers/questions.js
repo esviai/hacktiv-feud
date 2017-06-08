@@ -1,66 +1,54 @@
-const User = require(`../models/user`)
-const bcrypt = require(`bcrypt`)
-const saltRounds = 10
-const jwt = require(`jsonwebtoken`)
+const Question = require(`../models/question`)
 
 var create = ((req,res) => {
-  if(req.body.password.length !== 0) {
-    if(req.body.password.length < 8) {
-      res.send({errors: {password: {message: `Password length should not be less than 8 characters`}}})
-    }
-    else {
-      let newUser = new User ({
-        name: req.body.name,
-        username: req.body.username,
-        password: bcrypt.hashSync(req.body.password, saltRounds),
-        email: req.body.email,
-        phone: req.body.phone
-      })
-      newUser.save((err, createdUser) => {
-        res.send(err ? err : createdUser)
-      })
-    }
+  if(req.body.options.length !== 5) {
+    res.send({errors: {options: {message: `There should be 5 options for each question.`}}})
   }
   else {
-    res.send({errors: {password: {message: `Password should not be empty`}}})
-  }
+      let newQuestion = new Question ({
+        title: req.body.title,
+        content: req.body.content,
+        options: req.body.options
+      })
+      newQuestion.save((err, createdQuestion) => {
+        res.send(err ? err : createdQuestion)
+      })
+    }
 })
 
 var showAll = ((req,res) => {
-  User.find((err, users) => {
-    res.send(err ? err : users)
+  Question.find((err, questions) => {
+    res.send(err ? err : questions)
   })
 })
 
 var showOne = ((req,res) => {
-  User.findById(req.params.id, (err, user) => {
-    res.send(err ? err : user)
+  Question.findById(req.params.id, (err, question) => {
+    res.send(err ? err : question)
   })
 })
 
 var update = ((req,res) => {
-  User.findById(req.params.id, (err, user) => {
+  Question.findById(req.params.id, (err, question) => {
     if(err) res.send(err)
     else {
-      user.name = req.body.name || user.name
-      user.username = req.body.username || user.username
-      user.email = req.body.email || user.email
-      user.phone = req.body.phone || user.phone
-      if(req.body.password.length > 0) {
-        if(req.body.password.length < 8) {
-          res.send({errors: {password: {message: `Password length should not be less than 8 characters`}}})
+      question.title = req.body.title || question.title
+      question.content = req.body.content || question.content
+      if(req.body.options.length > 0) {
+        if(req.body.options.length !== 5) {
+          res.send({errors: {options: {message: `There should be 5 options for each question.`}}})
         }
         else {
-          user.password = bcrypt.hashSync(req.body.password,saltRounds)
-          user.save((err, updatedUser) => {
-            res.send(err ? err : updatedUser)
+          question.options = req.body.options
+          question.save((err, updatedQuestion) => {
+            res.send(err ? err : updatedQuestion)
           })
         }
       }
       else {
-        user.password = user.password
-        user.save((err, updatedUser) => {
-          res.send(err ? err : updatedUser)
+        question.options = question.options
+        question.save((err, updatedQuestion) => {
+          res.send(err ? err : updatedQuestion)
         })
       }
     }
@@ -68,8 +56,8 @@ var update = ((req,res) => {
 })
 
 var destroy = ((req,res) => {
-  User.findByIdAndRemove(req.params.id, (err, user) => {
-    res.send(err ? err : user)
+  Question.findByIdAndRemove(req.params.id, (err, question) => {
+    res.send(err ? err : question)
   })
 })
 

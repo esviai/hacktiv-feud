@@ -17,8 +17,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 
 const users = require('./routes/users')
+const questions = require('./routes/questions')
 
 app.use('/api/users', users)
+app.use('/api/questions', questions)
 
 app.listen(3000)
 

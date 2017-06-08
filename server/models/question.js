@@ -4,11 +4,10 @@ const Schema = mongoose.Schema
 var questionSchema = new Schema ({
   title: {
     type: String,
-    required: [true, '{PATH} should not be empty'],
-    unique: true
   },
   content: {
     type: String,
+    required: [true, '{PATH} should not be empty'],
     unique: true
   },
   options: {
@@ -17,6 +16,6 @@ var questionSchema = new Schema ({
   }
 })
 
-var user = mongoose.model('question', userSchema)
+var question = mongoose.model('question', questionSchema)
 
 module.exports = question
