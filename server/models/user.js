@@ -28,13 +28,18 @@ var userSchema = new Schema ({
     minlength: [8, '{PATH} should not be less than eight characters'],
     required: [true, '{PATH} should not be empty']
   },
-  role: {
+  phone: {
     type: String,
-    enum: {values: ['admin','user'], message: '{PATH} should not outside of the allowed values'}
-  },
-  loginMethod: {
-    type: String,
-    enum: {values: ['native','facebook'], message: '{PATH} should not outside of the allowed values'}
+    maxlength: [13, 'The value of {PATH} ({VALUE}) exceeds the maximum allowed length ({MAXLENGTH}).'],
+    minlength: [10, 'The value of {PATH} ({VALUE}) should not be shorter than {MINLENGTH} characters.'],
+    validate: {
+      validator: function(phone) {
+        return /^[0-9]*$/.test(phone)
+      },
+      mesage: '{VALUE} is not a valid phone number'
+    },
+    required: [true, '{PATH} should not be empty'],
+    unique: true
   }
 })
 
