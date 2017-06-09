@@ -22,14 +22,14 @@
                 <div class='box' style='text-align: left;'>
                   <label class='label'>Username</label>
                   <p class='control has-icons-left'>
-                    <input class='input' v-model='loginUsername' type='text' placeholder='username'>
+                    <input class='input' v-model='loginData.username' type='text' placeholder='username'>
                     <span class='icon is-small is-left'>
                       <i class='fa fa-user'></i>
                     </span>
                   </p><br>
                   <label class='label'>Password</label>
                   <p class='control has-icons-left'>
-                    <input class='input' v-model='loginPassword' type='password' placeholder='password'>
+                    <input class='input' v-model='loginData.password' type='password' placeholder='password'>
                     <span class='icon is-small is-left'>
                       <i class='fa fa-key'></i>
                     </span>
@@ -73,41 +73,41 @@
         <div class='field'>
           <label class='label'>Name</label>
           <p class='control has-icons-left'>
-            <input v-model='user.name' class='input' type='text' placeholder='name'>
+            <input v-model='signUpData.name' class='input' type='text' placeholder='name'>
             <span class='icon is-small is-left'>
                 <i class='fa fa-address-book'></i>
               </span>
           </p><br>
           <label class='label'>Username</label>
           <p class='control has-icons-left'>
-            <input v-model='user.username' class='input' type='text' placeholder='username'>
+            <input v-model='signUpData.username' class='input' type='text' placeholder='username'>
             <span class='icon is-small is-left'>
                 <i class='fa fa-user'></i>
               </span>
           </p><br>
           <label class='label'>Password</label>
           <p class='control has-icons-left'>
-            <input v-model='user.password' class='input' type='password' placeholder='password'>
+            <input v-model='signUpData.password' class='input' type='password' placeholder='password'>
             <span class='icon is-small is-left'>
                 <i class='fa fa-key'></i>
               </span>
           </p><br>
           <label class='label'>Email</label>
           <p class='control has-icons-left'>
-            <input v-model='user.email' class='input' type='email' placeholder='email'>
+            <input v-model='signUpData.email' class='input' type='email' placeholder='email'>
             <span class='icon is-small is-left'>
                 <i class='fa fa-envelope'></i>
               </span>
           </p><br>
           <label class='label'>Phone</label>
           <p class='control has-icons-left'>
-            <input v-model='user.phone' class='input' type='email' placeholder='phone'>
+            <input v-model='signUpData.phone' class='input' type='email' placeholder='phone'>
             <span class='icon is-small is-left'>
                 <i class='fa fa-mobile'></i>
               </span>
           </p><br>
           <span class='control'>
-                <a class='button is-warning' v-on:click='daftarbaru'>
+                <a class='button is-warning' v-on:click='signUpBaru'>
                   <span>Sign Up</span>
           </a>
           </span>
@@ -125,22 +125,7 @@
                     </span>
             </a>
             </span>
-            <!-- <span v-if='isLogin == false' class='control'>
-                  <a class='button is-info is-outlined' onclick='loginWithFB()'>
-                    <span>Sign in </span>
-            <span class='icon'>
-                      <i class='fa fa-facebook'></i>
-                    </span>
-            </a>
-            </span>
-            <span v-else-if='isLogin == true' class='control'>
-                  <a class='button is-info is-outlined' onclick='logoutFromFB()'>
-                    <span>Log Out from </span>
-            <span class='icon'>
-                      <i class='fa fa-facebook'></i>
-                    </span>
-            </a>
-            </span> -->
+
             <span class='control'>
                   <a class='button is-info is-outlined' onclick='loginWithFB()'>
                     <span>Sign in </span>
@@ -179,8 +164,17 @@ export default {
   data () {
     return {
       modalClass: 'modal',
-      loginUsername: '',
-      loginPassword: ''
+      loginData: {
+        username: '',
+        password: ''
+      },
+      signUpData: {
+        username: '',
+        password: '',
+        name: '',
+        email: '',
+        phone: ''
+      }
     }
   },
   methods: {
@@ -190,13 +184,11 @@ export default {
     closeModal () {
       this.modalClass = 'modal'
     },
-    daftarbaru () {
-      alert(`daftar akun baru dengan`)
-    },
     loginManual () {
-      alert(`mencoba login dengan\n
-        username: ${this.loginUsername}\n
-        password: ${this.loginPassword}`)
+      this.$emit('loginManual', this.loginData)
+    },
+    signUpBaru () {
+      this.$emit('signUpBaru', this.signUpData)
     }
   }
 }
@@ -234,6 +226,6 @@ export default {
   animation-duration: 3s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
-  animation-delay: 0.5s;
+  animation-delay: 0.3s;
 }
 </style>

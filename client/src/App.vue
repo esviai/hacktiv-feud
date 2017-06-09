@@ -3,7 +3,10 @@
     <!-- <img src="./assets/logo.png"> -->
     <!-- <router-view></router-view> -->
     <survey v-if="isLogin" v-bind:question="question" v-bind:choice="choice" v-on:choose="setAnswer"></survey>
-    <!--<login v-else :isLogin="isLogin" :user=user></login>-->
+
+    <login v-else :isLogin="isLogin" :user="user"
+    v-on:loginManual="prosesLogin" v-on:signUpBaru="prosesSignUp"></login>
+
   </div>
 </template>
 
@@ -61,7 +64,7 @@ export default {
         })
     },
     setAnswer: function (choice) {
-      var self = this
+
       this.choice = this.question.options.indexOf(choice)
       console.log(this.choice)
       firebase.database().ref(`hacktivfeud/${self.question._id}/result/${choice}/survey`).once('value')
@@ -74,6 +77,15 @@ export default {
             game: 0
           })
         })
+    },
+    
+    prosesLogin: function (obj) {
+      alert(obj.username + obj.password + '\njangan lupa localStorage.isLoginnya diganti juga')
+    },
+    prosesSignUp: function (obj) {
+      alert(JSON.stringify(obj))
+
+      var self = this
     }
   },
   created: function () {
