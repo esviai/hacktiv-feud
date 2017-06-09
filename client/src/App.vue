@@ -3,8 +3,8 @@
     <!-- <img src="./assets/logo.png"> -->
     <!-- <router-view></router-view> -->
     
-    <survey v-bind:question="question" v-bind:choice="choice" v-on:choose="setAnswer"></survey>
-    <login :isLogin="isLogin" :user=user></login>
+    <survey v-if="isLogin" v-bind:question="question" v-bind:choice="choice" v-on:choose="setAnswer"></survey>
+    <login v-else :isLogin="isLogin" :user=user></login>
     
   </div>
 </template>
