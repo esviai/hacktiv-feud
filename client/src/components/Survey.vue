@@ -5,10 +5,10 @@
       <div class="kotak-pertanyaan">
         <form class="" method="post">
           <label for="">{{question.content}}</label><br>
-          <span v-for="choice in question.options" class="">
-            <input type="radio" v-bind:value="choice">{{choice}}
+          <span v-for="ans in question.options" class="">
+            <input type="radio" v-model="choiceData" v-bind:value="ans">{{ans}}
           </span>
-          <button type="submit" @click="next()">next</button>
+          <button type="button" @click="choose">Submit</button>
         </form>
       </div>
     </div>
@@ -21,16 +21,16 @@
 <script>
 export default {
   name: 'hello',
-  props: ['question'],
+  props: ['question', 'choice'],
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      index: 0
+      choiceData: this.choice
     }
   },
   methods: {
-    next () {
-      this.$emit('')
+    choose: function () {
+      this.$emit('choose', this.choiceData)
     }
   }
 }
