@@ -1,77 +1,68 @@
-<template lang="html">
-  <div>
-    <question :question = 'question'></question>
-    <options :question = 'question' @choose="setAnswer"></options>
+<template>
+  <div class="container">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="columns">
+          <div class="column is-one-third">
+            <figure class="image"><img src="http://i.imgur.com/NYfFAFr.png" alt=""></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="hero">
+      <div id="board" class="hero-body" style="">
+        <h1 class="title">{{question.content}}</h1>
+        <br>
+        <div v-for="option in question.options">
+          <br>
+          <a @click="choose(option)" class="button is-primary is-large">{{option}}</a>
+        </div>
+      </div>
+      <div id="thanks" class="title" style="display:none">
+        <h1>Thanks for participating in our Game</h1>
+        <h1>Survey membuktikan: {{ result }} %</h1>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase'
-import axios from 'axios'
-import Question from './game/Question'
-import Options from './game/Options'
-
-const initialData = () => {
-  return {
-    questions: [],
-    question: {},
-    choice: 0,
-    user: {},
-    isLogin: true
-  }
-}
-
 export default {
-  components: {
-    Question,
-    Options
-  },
-  data: initialData,
-  methods: {
-    configFirebase: function () {
-      var config = {
-        apiKey: 'AIzaSyAzjSc2oQZkhQrCimqJYhwSpp9ZkC0O8DY',
-        authDomain: 'hacktiv-feud.firebaseapp.com',
-        databaseURL: 'https://hacktiv-feud.firebaseio.com',
-        projectId: 'hacktiv-feud',
-        storageBucket: 'hacktiv-feud.appspot.com',
-        messagingSenderId: '324846643222'
-      }
-      firebase.initializeApp(config)
-    },
-    setAnswer: function (choice) {
-      var self = this
-      this.choice = this.question.options.indexOf(choice)
-      console.log(this.choice)
-      firebase.database().ref(`hacktivfeud/${self.question._id}/result/${choice}/game`).once('value')
-        .then(function (data) {
-          firebase.database().ref(`hacktivfeud/${self.question._id}/result/${choice}`).update({
-            game: data.val() + 1
-          })
-        })
-        .catch(function () {
-          firebase.database().ref(`hacktivfeud/${self.question._id}/result/${choice}`)
-            .set({
-              game: 1
-            })
-        })
-    },
-    getData: function () {
-      axios.get(`http://localhost:3000/api/questions`)
-        .then((response) => {
-          console.log(response)
-          this.questions = response.data
-          this.question = this.questions[1]
-          console.log(this.question)
-        })
+  name: 'game',
+  props: ['question', 'choice', 'result'],
+  data () {
+    return {
+      choiceData: this.choice
     }
   },
-  created: () => {
-    this.getData()
-    this.configFirebase()
+  methods: {
+    choose: function (option) {
+      this.$emit('choose', option)
+      document.querySelector('#board').setAttribute('style', 'display:none')
+      document.querySelector('#thanks').setAttribute('style', '')
+    }
   }
 }
 </script>
 
-<style lang="css">
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  color: #42b983;
+}
+
 </style>
