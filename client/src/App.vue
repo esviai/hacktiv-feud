@@ -64,8 +64,8 @@ export default {
         })
     },
     setAnswer: function (choice) {
-
       this.choice = this.question.options.indexOf(choice)
+      var self = this
       console.log(this.choice)
       firebase.database().ref(`hacktivfeud/${self.question._id}/result/${choice}/survey`).once('value')
         .then(function (data) {
@@ -78,14 +78,11 @@ export default {
           })
         })
     },
-    
     prosesLogin: function (obj) {
       alert(obj.username + obj.password + '\njangan lupa localStorage.isLoginnya diganti juga')
     },
     prosesSignUp: function (obj) {
       alert(JSON.stringify(obj))
-
-      var self = this
     }
   },
   created: function () {
