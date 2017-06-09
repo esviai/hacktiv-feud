@@ -19,9 +19,11 @@ mongoose.connect(db_config[curr_env])
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 
+const index = require('./routes/index')
 const users = require('./routes/users')
 const questions = require('./routes/questions')
 
+app.use('/', index)
 app.use('/api/users', users)
 app.use('/api/questions', questions)
 
