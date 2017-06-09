@@ -2,8 +2,10 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <!-- <router-view></router-view> -->
-    <!--<survey v-bind:question="question"></survey>-->
-    <login :isLogin="isLogin" :user=user></login>
+    
+    <survey v-if="isLogin" v-bind:question="question" v-bind:choice="choice" v-on:choose="setAnswer"></survey>
+    <login v-else :isLogin="isLogin" :user=user></login>
+    
   </div>
 </template>
 
@@ -18,10 +20,13 @@ export default {
     Survey,
     Login
   },
-  data: {
-    question: {},
-    user: {},
-    isLogin: false
+  data () {
+    return {
+      question: {},
+      choice: 0,
+      user: {},
+      isLogin: false
+    }
   },
   methods: {
     getData: function () {
@@ -29,6 +34,9 @@ export default {
         content: '1 apakah ?',
         options: [1, 2, 3, 4, 5]
       }
+    },
+    setAnswer: function (choice) {
+      this.choice = choice
     }
   },
   created: function () {
