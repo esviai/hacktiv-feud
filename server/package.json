@@ -26,6 +26,7 @@
     "express": "^4.15.3",
     "jsonwebtoken": "^7.4.1",
     "mocha": "^3.4.2",
-    "mongoose": "^4.10.5"
+    "mongoose": "^4.10.5",
+    "nodemailer": "^4.0.1"
   }
 }
