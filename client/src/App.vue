@@ -2,8 +2,8 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <!-- <router-view></router-view> -->
-    <survey v-if="isLogin" v-bind:question="question" v-bind:choice="choice" v-on:choose="setAnswer"></survey>
-
+    <!-- <survey v-if="isLogin" v-bind:question="question" v-bind:choice="choice" v-on:choose="setAnswer"></survey> -->
+    <game v-if="isLogin" v-bind:question="question" v-bind:choice="choice" v-bind:result="result" v-on:choose="gameOn"></game>
     <login v-else :isLogin="isLogin" :user="user"
     v-on:loginManual="prosesLogin" v-on:signUpBaru="prosesSignUp"></login>
   </div>
@@ -29,7 +29,8 @@ export default {
       question: {},
       choice: 0,
       user: {},
-      isLogin: true
+      isLogin: true,
+      result: {}
     }
   },
   methods: {
@@ -77,6 +78,27 @@ export default {
             game: 0
           })
         })
+    },
+    gameOn: function (choice) {
+      var self = this
+      firebase.database().ref(`hacktivfeud/${this.question._id}/result`).on('value', function (data) {
+        // var arr1 = Object.keys(data.val()).map((val) => { return val })
+        var arr2 = []
+        for (var key in data.val()) {
+          arr2.push(data.val()[key])
+        }
+        var arr3 = []
+        for (let i = 0; i < arr2.length; i++) {
+          arr3.push(arr2[i].survey)
+        }
+        var arr4 = []
+        let red = arr3.reduce((total, num) => { return total + num })
+        for (let i = 0; i < arr3.length; i++) {
+          arr4.push(arr3[i] * 100 / red)
+        }
+        self.choice = self.question.options.indexOf(choice)
+        self.result = arr4[self.choice]
+      })
     },
     prosesLogin: function (obj) {
       alert(obj.username + obj.password + '\njangan lupa localStorage.isLoginnya diganti juga')

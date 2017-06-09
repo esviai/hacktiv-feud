@@ -10,13 +10,17 @@
       </div>
     </section>
     <section class="hero">
-      <div class="hero-body">
+      <div id="board" class="hero-body" style="">
         <h1 class="title">{{question.content}}</h1>
         <br>
         <div v-for="option in question.options">
           <br>
           <a @click="choose(option)" class="button is-primary is-large">{{option}}</a>
         </div>
+      </div>
+      <div id="thanks" class="title" style="display:none">
+        <h1>Thanks for participating in our survey</h1>
+        <h3>The game will start in a few minutes</h3>
       </div>
     </section>
   </div>
@@ -34,6 +38,8 @@ export default {
   methods: {
     choose: function (option) {
       this.$emit('choose', option)
+      document.querySelector('#board').setAttribute('style', 'display:none')
+      document.querySelector('#thanks').setAttribute('style', '')
     }
   }
 }
