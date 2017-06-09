@@ -1,10 +1,10 @@
 <template lang="html">
   <div id="options">
     <div class="field">
-      <ul v-for="options in hardcoded" class="control">
+      <ul v-for="options in question" class="control">
         <li v-for="option in options.options">
           <label class="radio">
-            <input type="radio" name="option" :value="option" v-model='ChosenOption'>
+            <input type="radio" name="option" :value="option" @click="choose(option)">
             {{option}}
           </label>
         </li>
@@ -12,7 +12,7 @@
     </div>
     <div class="field is-grouped">
       <p class="control">
-        <button class="button is-primary" @click>Submit</button>
+        <button class="button is-primary" @click="choose(option)">Submit</button>
       </p>
       <p class="control">
         <button class="button is-link">Cancel</button>
@@ -24,7 +24,12 @@
 
 <script>
 export default {
-  props: ['hardcoded']
+  props: ['question', 'choice'],
+  methods: {
+    choose: function (option) {
+      this.$emit('choose', option)
+    }
+  }
 }
 </script>
 
