@@ -45,12 +45,22 @@ export default {
       firebase.initializeApp(config)
     },
     getData: function () {
+      var self = this
       axios.get(`http://localhost:3000/api/questions`)
         .then((response) => {
           console.log(response)
-          this.questions = response.data
-          this.question = this.questions[1]
-          console.log(this.question)
+          self.questions = response.data
+          firebase.database().ref(`hacktivfeud/question_idx/index`).once('value')
+            .then(function (data) {
+              console.log('asdskjadjkasdkjad', data.val())
+              firebase.database().ref(`hacktivfeud/question_idx`).update({index: data.val() + 1})
+            })
+          firebase.database().ref(`hacktivfeud/question_idx/index`).on('value', function (indexData) {
+            console.log('AAAAAAAAAA')
+            console.log(indexData.val())
+            self.question = self.questions[indexData.val() % self.questions.length]
+            console.log(self.question)
+          })
         })
     },
     setAnswer: function (choice) {
@@ -88,11 +98,11 @@ export default {
 
 <style>
 /*#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+font-family: 'Avenir', Helvetica, Arial, sans-serif;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+text-align: center;
+color: #2c3e50;
+margin-top: 60px;
 }*/
 </style>

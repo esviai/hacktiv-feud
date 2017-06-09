@@ -8,7 +8,8 @@ const app = express()
 app.use(cors())
 
 const db_config = {
-  development: 'mongodb://localhost/hacktivfeud',
+  //development: 'mongodb://localhost/hacktivfeud',
+  development: 'mongodb://ingelieur:tsubasa@ds117592.mlab.com:17592/hacktiv-feud',
   test: 'mongodb://localhost/hacktivfeud-test'
 }
 
