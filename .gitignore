@@ -7,3 +7,5 @@ client/yarn-error.log*
 client/test/unit/coverage
 client/test/e2e/reports
 client/selenium-debug.log
+server/node_modules/
+server/.env

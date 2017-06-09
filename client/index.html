@@ -1,28 +1,85 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>hacktiv8-100</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.css">
+<head>
+  <meta charset="utf-8">
+  <title>hacktiv-feud</title>
+  <link rel="icon" href="http://i.imgur.com/UR4kLBm.png">
+  <script="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
-  <script type="text/javascript">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
 
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyAzjSc2oQZkhQrCimqJYhwSpp9ZkC0O8DY",
-      authDomain: "hacktiv-feud.firebaseapp.com",
-      databaseURL: "https://hacktiv-feud.firebaseio.com",
-      projectId: "hacktiv-feud",
-      storageBucket: "hacktiv-feud.appspot.com",
-      messagingSenderId: "324846643222"
-    };
-    firebase.initializeApp(config);
-)
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <script type="text/javascript">
+  window.fbAsyncInit = function () {
+    FB.init({
+      appId: '1922259988055135',
+      cookie: true,
+      xfbml: true,
+      version: 'v2.8'
+    })
+    FB.AppEvents.logPageView()
+    FB.getLoginStatus(function (response) {
+      console.log('ini dari inisiasi FB SDK')
+      console.log(response)
+      if (response.status === 'not_authorized') {
+        console.log('belum login app, tapi sudah login fb')
+        localStorage.isLogin = false
+      } else if (response.status === 'connected') {
+        console.log('sudah login app, sudah login fb')
+        localStorage.isLogin = true
+        FB.api('/me', function (response) {
+          console.log(response);
+        })
+      } else {
+        console.log('belum dua dua nya')
+        localStorage.isLogin = false
+      }
+    })
+  }
+
+  function loginWithFB () {
+    FB.login(function (response) {
+      console.log('ini dari fungsi FB.login')
+      console.log(response)
+      if (response.status === 'not_authorized') {
+        alert('belum login app, tapi sudah login fb')
+        localStorage.isLogin = false
+      } else if (response.status === 'connected') {
+        alert('sudah login app, sudah login fb')
+        localStorage.isLogin = true
+        FB.api('/me', function (response) {
+          console.log(response);
+        })
+      } else {
+        alert('belum dua dua nya')
+        localStorage.isLogin = false
+      }
+    })
+  }
+
+  function logoutFromFB () {
+    FB.logout(function (response) {
+      localStorage.isLogin = false
+      alert('sudah logout yaa')
+      console.log(response)
+    })
+  }
+
+  (function (d, s, id) {
+    var js = d.getElementsByTagName(s)[0]
+    var fjs = d.getElementsByTagName(s)[0]
+    if (d.getElementById(id)) {
+      return
+    }
+    js = d.createElement(s)
+    js.id = id
+    js.src = '//connect.facebook.net/en_US/sdk.js'
+    fjs.parentNode.insertBefore(js, fjs)
+  }(document, 'script', 'facebook-jssdk'))
   </script>
+</body>
 </html>
