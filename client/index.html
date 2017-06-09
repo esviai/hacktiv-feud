@@ -25,18 +25,10 @@
     FB.getLoginStatus(function (response) {
       console.log('ini dari inisiasi FB SDK')
       console.log(response)
-      if (response.status === 'not_authorized') {
-        console.log('belum login app, tapi sudah login fb')
-        localStorage.isLogout = true
-      } else if (response.status === 'connected') {
-        console.log('sudah login app, sudah login fb')
-        localStorage.isLogout = false
-        FB.api('/me', function (response) {
-          console.log(response);
+      if (response.status === 'connected') {
+        console.log('login via FB Success')
+        localStorage.isLogin = true
         })
-      } else {
-        console.log('belum dua dua nya')
-        localStorage.isLogout = true
       }
     })
   }
