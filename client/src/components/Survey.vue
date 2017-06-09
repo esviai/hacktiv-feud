@@ -15,7 +15,7 @@
         <br>
         <div v-for="option in question.options">
           <br>
-          <a class="button is-primary is-large">{{option}}</a>
+          <a @click="choose(option)" class="button is-primary is-large">{{option}}</a>
         </div>
       </div>
     </section>
@@ -28,23 +28,14 @@ export default {
   props: ['question', 'choice'],
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      choiceData: this.choice,
-      question: []
+      choiceData: this.choice
     }
   },
   methods: {
-    choose: function () {
-      this.$emit('choose', this.choiceData)
-    },
-    getQuestions: function () {
-      axios.get(`http://localhost:3000/api/questions`)
-        .then ((response) => {
-          this.question = response.data
-        })
+    choose: function (option) {
+      this.$emit('choose', option)
     }
   }
-
 }
 </script>
 

@@ -5,6 +5,8 @@ var cors = require('cors')
 
 const app = express()
 
+app.use(cors())
+
 const db_config = {
   development: 'mongodb://localhost/hacktivfeud',
   test: 'mongodb://localhost/hacktivfeud-test'
