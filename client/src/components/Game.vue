@@ -20,7 +20,7 @@
       </div>
       <div id="thanks" class="title" style="display:none">
         <h1>Thanks for participating in our Game</h1>
-        <h1>Survey membuktikan: {{ result }}</h1>
+        <h1>Survey membuktikan: {{ result }} %</h1>
       </div>
     </section>
   </div>
