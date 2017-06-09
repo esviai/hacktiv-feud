@@ -2,10 +2,10 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <!-- <router-view></router-view> -->
-    
+
     <survey v-if="isLogin" v-bind:question="question" v-bind:choice="choice" v-on:choose="setAnswer"></survey>
     <login v-else :isLogin="isLogin" :user=user></login>
-    
+
   </div>
 </template>
 
@@ -43,6 +43,7 @@ export default {
     this.getData()
   }
 }
+
 </script>
 
 <style>
