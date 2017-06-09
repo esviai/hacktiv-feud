@@ -4,7 +4,7 @@
     <!-- <router-view></router-view> -->
     
     <survey v-if="isLogin" v-bind:question="question" v-bind:choice="choice" v-on:choose="setAnswer"></survey>
-    <login v-else :isLogin="isLogin" :user=user></login>
+    <!--<login v-else :isLogin="isLogin" :user=user></login>-->
     
   </div>
 </template>
@@ -12,20 +12,20 @@
 <script>
 
 import Survey from './components/Survey'
-import Login from './components/Login'
+// import Login from './components/Login'
 
 export default {
   name: 'app',
   components: {
-    Survey,
-    Login
+    Survey
+    // Login
   },
   data () {
     return {
       question: {},
       choice: 0,
       user: {},
-      isLogin: false
+      isLogin: true
     }
   },
   methods: {

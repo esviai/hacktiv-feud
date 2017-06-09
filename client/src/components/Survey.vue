@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'hello',
+  name: 'survey',
   props: ['question', 'choice'],
   data () {
     return {
