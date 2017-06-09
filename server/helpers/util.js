@@ -13,7 +13,7 @@ var cronTimePattern = (dateNow) => {
 
 var gameTime = ((surveyTime) => {
   let gameTime = new Date()
-  return gameTime.setMinutes(surveyTime.getMinutes() + 10)
+  return gameTime.setMinutes(surveyTime.getMinutes() + 5)
 })
 
 var surveyTime = ((gameTime) => {

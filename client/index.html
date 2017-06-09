@@ -27,16 +27,16 @@
       console.log(response)
       if (response.status === 'not_authorized') {
         console.log('belum login app, tapi sudah login fb')
-        localStorage.isLogin = false
+        localStorage.isLogout = true
       } else if (response.status === 'connected') {
         console.log('sudah login app, sudah login fb')
-        localStorage.isLogin = true
+        localStorage.isLogout = false
         FB.api('/me', function (response) {
           console.log(response);
         })
       } else {
         console.log('belum dua dua nya')
-        localStorage.isLogin = false
+        localStorage.isLogout = true
       }
     })
   }
@@ -47,23 +47,23 @@
       console.log(response)
       if (response.status === 'not_authorized') {
         alert('belum login app, tapi sudah login fb')
-        localStorage.isLogin = false
+        localStorage.isLogout = true
       } else if (response.status === 'connected') {
         alert('sudah login app, sudah login fb')
-        localStorage.isLogin = true
+        localStorage.isLogout = false
         FB.api('/me', function (response) {
           console.log(response);
         })
       } else {
         alert('belum dua dua nya')
-        localStorage.isLogin = false
+        localStorage.isLogout = true
       }
     })
   }
 
   function logoutFromFB () {
     FB.logout(function (response) {
-      localStorage.isLogin = false
+      localStorage.isLogout = true
       alert('sudah logout yaa')
       console.log(response)
     })

@@ -2,6 +2,7 @@ const User = require(`../models/user`)
 const bcrypt = require(`bcrypt`)
 const saltRounds = 10
 const jwt = require(`jsonwebtoken`)
+const dotenv = require('dotenv').config()
 
 var create = ((req,res) => {
   if(req.body.password.length !== 0) {
@@ -73,10 +74,36 @@ var destroy = ((req,res) => {
   })
 })
 
+var signin = ((req, res) => {
+  User.findOne({username: req.body.username}, (err, user) => {
+    if(err) res.send(err)
+    else {
+      if(user) {
+        bcrypt.compare(req.body.password, user.password, (err,result) => {
+          if(err) res.send(err)
+          else {
+            if(result) {
+              let token = jwt.sign({id: user.id, name: user.name, username: user.username, role: user.role}, process.env.SECRET_KEY)
+              res.send({token:token})
+            }
+            else {
+              res.send({err: 'Username/password is wrong'})
+            }
+          }
+        })
+      }
+      else {
+        res.send({err: 'Username/password is wrong'})
+      }
+    }
+  })
+})
+
 module.exports = {
   create,
   showAll,
   showOne,
   update,
-  destroy
+  destroy,
+  signin
 }
