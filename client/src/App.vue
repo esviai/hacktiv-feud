@@ -6,13 +6,12 @@
 
     <login v-else :isLogin="isLogin" :user="user"
     v-on:loginManual="prosesLogin" v-on:signUpBaru="prosesSignUp"></login>
-
   </div>
 </template>
 
 <script>
-
 import Survey from './components/Survey'
+import Game from './components/Game'
 // import Login from './components/Login'
 import axios from 'axios'
 import firebase from 'firebase'
@@ -20,7 +19,8 @@ import firebase from 'firebase'
 export default {
   name: 'app',
   components: {
-    Survey
+    Survey,
+    Game
     // Login
   },
   data () {
