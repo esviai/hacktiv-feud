@@ -229,6 +229,6 @@ export default {
   animation-duration: 3s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
-  animation-delay: 0.5s;
+  animation-delay: 0.3s;
 }
 </style>
