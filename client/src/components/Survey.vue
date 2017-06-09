@@ -1,5 +1,28 @@
 <template>
   <div class="container">
+
+    <!-- Nav Bar Sign Out -->
+
+    <div style='width: 100%; background-color: white; position: fixed; top: -2px; z-index: 5000; right: 0px;'>
+      <nav class='nav container' style='max-width: 1000px'>
+        <div class='nav-left'>
+          <a class='nav-item'>
+              <img src='http://i.imgur.com/NYfFAFr.png' alt='Hacktiv8 100 logo'>
+            </a>
+        </div>
+        <p class="nav-item">Hai, {{ curr.User }} yang di sana</p>
+        <div class='nav-item'>
+          <div class='field is-grouped'>
+            <p class='control'>
+              <a class='button is-warning' v-on:click='showlogin'>
+                Sign Out
+              </a>
+            </p>
+          </div>
+        </div>
+      </nav>
+    </div>
+
     <section class="hero">
       <div class="hero-body">
         <div class="columns">
