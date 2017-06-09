@@ -1,5 +1,6 @@
 <template>
 <div style="background: #e5e5e5">
+  <h1>HELLO</h1>
   <div class="container">
     <div style='width: 100%; background-color: white; position: fixed; top: -2px; z-index: 5000; right: 0px;'>
       <nav class='nav container' style='max-width: 1000px'>
@@ -160,7 +161,7 @@
 
 <script>
 export default {
-  props: ['user', 'isLogin'],
+  props: ['user', 'isLogout'],
   data () {
     return {
       modalClass: 'modal',
