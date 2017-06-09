@@ -2,8 +2,8 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <!-- <router-view></router-view> -->
-
     <survey v-if="isLogin" v-bind:question="question" v-bind:choice="choice" v-on:choose="setAnswer"></survey>
+
     <login v-else :isLogin="isLogin" :user="user"
     v-on:loginManual="prosesLogin" v-on:signUpBaru="prosesSignUp"></login>
 
@@ -13,41 +13,74 @@
 <script>
 
 import Survey from './components/Survey'
-import Login from './components/Login'
+// import Login from './components/Login'
+import axios from 'axios'
+import firebase from 'firebase'
 
 export default {
   name: 'app',
   components: {
-    Survey,
-    Login
+    Survey
+    // Login
   },
   data () {
     return {
+      questions: [],
       question: {},
       choice: 0,
       user: {},
-      isLogin: false
+      isLogin: true
     }
   },
   methods: {
-    getData: function () {
-      this.question = {
-        content: '1 apakah ?',
-        options: [1, 2, 3, 4, 5]
+    configFirebase: function () {
+      var config = {
+        apiKey: 'AIzaSyAzjSc2oQZkhQrCimqJYhwSpp9ZkC0O8DY',
+        authDomain: 'hacktiv-feud.firebaseapp.com',
+        databaseURL: 'https://hacktiv-feud.firebaseio.com',
+        projectId: 'hacktiv-feud',
+        storageBucket: 'hacktiv-feud.appspot.com',
+        messagingSenderId: '324846643222'
       }
+      firebase.initializeApp(config)
+    },
+    getData: function () {
+      axios.get(`http://localhost:3000/api/questions`)
+        .then((response) => {
+          console.log(response)
+          this.questions = response.data
+          this.question = this.questions[1]
+          console.log(this.question)
+        })
     },
     setAnswer: function (choice) {
-      this.choice = choice
+
+      this.choice = this.question.options.indexOf(choice)
+      console.log(this.choice)
+      firebase.database().ref(`hacktivfeud/${self.question._id}/result/${choice}/survey`).once('value')
+        .then(function (data) {
+          firebase.database().ref(`hacktivfeud/${self.question._id}/result/${choice}`).update({survey: data.val() + 1})
+        })
+        .catch(function () {
+          firebase.database().ref(`hacktivfeud/${self.question._id}/result/${choice}`).set({
+            survey: 1,
+            game: 0
+          })
+        })
     },
+    
     prosesLogin: function (obj) {
       alert(obj.username + obj.password + '\njangan lupa localStorage.isLoginnya diganti juga')
     },
     prosesSignUp: function (obj) {
       alert(JSON.stringify(obj))
+
+      var self = this
     }
   },
   created: function () {
     this.getData()
+    this.configFirebase()
   }
 }
 

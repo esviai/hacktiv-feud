@@ -50,9 +50,6 @@
 
       </nav>
     </div>
-
-    <!-- Isi -->
-
     <div class='columns' style='max-width: 1000px; padding-top: 45px;'>
       <div class='column is-two-thirds'>
         <div class='contentnya-ini' style='padding-top: 91px'>
