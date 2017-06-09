@@ -1,6 +1,7 @@
 const Question = require(`../models/question`)
 
 var create = ((req,res) => {
+  console.log(req.body.options[0])
   if(req.body.options.length !== 5) {
     res.send({errors: {options: {message: `There should be 5 options for each question.`}}})
   }

@@ -1,36 +1,39 @@
 <template>
-  <div class="survey">
-    <div class="kiri">
-      <h1>{{msg}}</h1>
-      <div class="kotak-pertanyaan">
-        <form class="" method="post">
-          <label for="">{{question.content}}</label><br>
-          <span v-for="ans in question.options" class="">
-            <input type="radio" v-model="choiceData" v-bind:value="ans">{{ans}}
-          </span>
-          <button type="button" @click="choose">Submit</button>
-        </form>
+  <div class="container">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="columns">
+          <div class="column is-one-third">
+            <figure class="image"><img src="http://i.imgur.com/NYfFAFr.png" alt=""></figure>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="kanan">
-      <h1>ranking</h1>
-    </div>
+    </section>
+    <section class="hero">
+      <div class="hero-body">
+        <h1 class="title">{{question.content}}</h1>
+        <br>
+        <div v-for="option in question.options">
+          <br>
+          <a @click="choose(option)" class="button is-primary is-large">{{option}}</a>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'hello',
+  name: 'survey',
   props: ['question', 'choice'],
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
       choiceData: this.choice
     }
   },
   methods: {
-    choose: function () {
-      this.$emit('choose', this.choiceData)
+    choose: function (option) {
+      this.$emit('choose', option)
     }
   }
 }
