@@ -1,13 +1,33 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <!-- <img src="./assets/logo.png"> -->
+    <!-- <router-view></router-view> -->
+    <survey v-bind:question="question"></survey>
   </div>
 </template>
 
 <script>
+
+import Survey from './components/Survey'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    Survey
+  },
+  data: {
+    question: {}
+  },
+  methods: {
+    getData: function () {
+      this.question = {
+        content: '1 apakah ?',
+        options: [1, 2, 3, 4, 5]
+      }
+    }
+  },
+  created: function () {
+    this.getData()
+  }
 }
 </script>
 
