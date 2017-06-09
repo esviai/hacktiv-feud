@@ -13,15 +13,15 @@
 <script>
 
 import Survey from './components/Survey'
-// import Login from './components/Login'
+import Login from './components/Login'
 import axios from 'axios'
 import firebase from 'firebase'
 
 export default {
   name: 'app',
   components: {
-    Survey
-    // Login
+    Survey,
+    Login
   },
   data () {
     return {
@@ -29,7 +29,7 @@ export default {
       question: {},
       choice: 0,
       user: {},
-      isLogin: true
+      isLogin: false
     }
   },
   methods: {
@@ -64,7 +64,6 @@ export default {
         })
     },
     setAnswer: function (choice) {
-
       this.choice = this.question.options.indexOf(choice)
       console.log(this.choice)
       firebase.database().ref(`hacktivfeud/${self.question._id}/result/${choice}/survey`).once('value')
@@ -78,14 +77,12 @@ export default {
           })
         })
     },
-    
+
     prosesLogin: function (obj) {
       alert(obj.username + obj.password + '\njangan lupa localStorage.isLoginnya diganti juga')
     },
     prosesSignUp: function (obj) {
       alert(JSON.stringify(obj))
-
-      var self = this
     }
   },
   created: function () {

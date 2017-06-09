@@ -1,12 +1,4 @@
 const Question = require(`../models/question`)
-const nodemailer = require('nodemailer');
-let transporter = nodemailer.createTransport({
-  service: 'gmail.com',
-  auth: {
-    user: 'sidik.haktiv8@gmail.com',
-    pass: 'c0dingsiangmalam'
-  }
-});
 
 var create = ((req,res) => {
   console.log(req.body.options[0])
