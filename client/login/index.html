@@ -237,7 +237,7 @@
       newPassword: '',
       newEmail: '',
       newPhone: '',
-      isLogin: "boolean",
+      isLogin: false,
       img1: '30vw',
       imgPos: "absolute",
       imgTop: '31px'
@@ -284,6 +284,10 @@
       } else if (response.status == 'connected'){
         console.log('sudah login app, sudah login fb');
         app.isLogin = true
+        FB.api('/me', "GET", {fields: 'name, email'}, function(response) {
+          console.log('ini dari fb.api');
+          console.log(response);
+        });
       } else {
         console.log('belum dua dua nya');
         app.isLogin = false
@@ -291,20 +295,21 @@
     });
   };
   function loginWithFB() {
-    FB.login(function(response) {
-      console.log('ini dari fungsi FB.login');
-      console.log(response);
-      if (response.status == "not_authorized") {
-        alert('belum login app, tapi sudah login fb');
-        app.isLogin = false
-      } else if (response.status == 'connected'){
-        alert('sudah login app, sudah login fb');
-        app.isLogin = true
-      } else {
-        alert('belum dua dua nya');
-        app.isLogin = false
-      }
-    })
+
+      FB.login(function(response) {
+        console.log('ini dari fungsi FB.login');
+        console.log(response);
+        if (response.status == "not_authorized") {
+          alert('belum login app, tapi sudah login fb');
+          app.isLogin = false
+        } else if (response.status == 'connected'){
+          alert('sudah login app, sudah login fb');
+          app.isLogin = true
+        } else {
+          alert('belum dua dua nya');
+          app.isLogin = false
+        }
+      }, {scope: 'email'})
   }
 
   function logoutFromFB() {
