@@ -4,7 +4,8 @@
     <!-- <router-view></router-view> -->
 
     <survey v-if="isLogin" v-bind:question="question" v-bind:choice="choice" v-on:choose="setAnswer"></survey>
-    <login v-else :isLogin="isLogin" :user=user></login>
+    <login v-else :isLogin="isLogin" :user="user"
+    v-on:loginManual="prosesLogin" v-on:signUpBaru="prosesSignUp"></login>
 
   </div>
 </template>
@@ -37,6 +38,12 @@ export default {
     },
     setAnswer: function (choice) {
       this.choice = choice
+    },
+    prosesLogin: function (obj) {
+      alert(obj.username + obj.password + '\njangan lupa localStorage.isLoginnya diganti juga')
+    },
+    prosesSignUp: function (obj) {
+      alert(JSON.stringify(obj))
     }
   },
   created: function () {
