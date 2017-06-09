@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <p v-for="hardcoded in hardcoded">{{hardcoded.question}}</p>
+    <p v-for="hardcoded in hardcoded">{{hardcoded.content}}</p>
   </div>
 </template>
 
