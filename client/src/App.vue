@@ -6,14 +6,13 @@
     <survey v-if="isLogin" v-bind:question="question" v-bind:choice="choice" v-on:choose="setAnswer"></survey>
     <login v-else :user="user"
     v-on:loginManual="prosesLogin" v-on:signUpBaru="prosesSignUp"></login>
-
   </div>
 </template>
 
 <script>
-
 import Survey from './components/Survey'
 import Login from './components/Login'
+import Game from './components/Game'
 import axios from 'axios'
 import firebase from 'firebase'
 
