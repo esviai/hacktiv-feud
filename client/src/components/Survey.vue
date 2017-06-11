@@ -10,11 +10,11 @@
               <img src='http://i.imgur.com/NYfFAFr.png' alt='Hacktiv8 100 logo'>
             </a>
         </div>
-        <p class="nav-item">Hai, {{ curr.User }} yang di sana</p>
+        <p class="nav-item">Hai, yang di sana</p>
         <div class='nav-item'>
           <div class='field is-grouped'>
             <p class='control'>
-              <a class='button is-warning' v-on:click='showlogin'>
+              <a class='button is-warning' v-on:click='signout'>
                 Sign Out
               </a>
             </p>
@@ -26,9 +26,9 @@
     <section class="hero">
       <div class="hero-body">
         <div class="columns">
-          <div class="column is-one-third">
+          <!-- <div class="column is-one-third">
             <figure class="image"><img src="http://i.imgur.com/NYfFAFr.png" alt=""></figure>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
@@ -44,6 +44,7 @@
       <div id="thanks" class="title" style="display:none">
         <h1>Thanks for participating in our survey</h1>
         <h3>The game will start in a few minutes</h3>
+        <a @click="next" class="button is-primary is-large">Play On!</a>
       </div>
     </section>
   </div>
@@ -63,6 +64,13 @@ export default {
       this.$emit('choose', option)
       document.querySelector('#board').setAttribute('style', 'display:none')
       document.querySelector('#thanks').setAttribute('style', '')
+    },
+    next: function () {
+      this.$emit('next')
+    },
+    signout: function () {
+      localStorage.clear()
+      this.$emit('logout')
     }
   }
 }

@@ -28,6 +28,7 @@ function queueEmail(receiver) {
   }).save(function(err) {
     if (!err) console.log(job.id);
   });
+}
 
 queue.process('email', function(job, done) {
   transporter.sendMail(job.data, (error, info) => {
@@ -37,10 +38,10 @@ queue.process('email', function(job, done) {
     return console.log('sukses coi');
   }
   done()
+  });
 });
-  
+
   // jajaja
-const CronJob = require('cron').CronJob
 const util = require('../helpers/util')
 
 const startServer = new Date()

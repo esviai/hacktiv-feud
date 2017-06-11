@@ -40,6 +40,7 @@ export default {
       this.$emit('choose', option)
       document.querySelector('#board').setAttribute('style', 'display:none')
       document.querySelector('#thanks').setAttribute('style', '')
+      console.log('asd')
     }
   }
 }
